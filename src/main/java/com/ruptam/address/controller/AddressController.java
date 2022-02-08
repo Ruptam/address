@@ -31,11 +31,12 @@ public class AddressController {
     }
 
     @GetMapping(value = "/")
-    public ResponseEntity<?> getAddressById(@RequestParam("addressId") Long addressId) {
+    public Address getAddressById(@RequestParam("addressId") Long addressId) {
         Address address = addressService.getAddressById(addressId);
-        if (address != null) {
-            return new ResponseEntity<Address>(address, HttpStatus.OK);
-        }
-        return new ResponseEntity<String>("Not Found", HttpStatus.NOT_FOUND);
+        // if (address != null) {
+        //     return new ResponseEntity<Address>(address, HttpStatus.OK);
+        // }
+        // return new ResponseEntity<String>("Not Found", HttpStatus.NOT_FOUND);
+        return address;
     }
 }
