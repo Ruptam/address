@@ -4,6 +4,8 @@ import com.ruptam.address.entity.Address;
 import com.ruptam.address.model.AddressDTO;
 import com.ruptam.address.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,10 +17,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value = "/address")
+@RefreshScope
 public class AddressController {
     
     @Autowired
     private AddressService addressService;
+
+    @Value("${address.profileProp}")
+    private String profileProp;
 
     @PostMapping(value = "/")
     public ResponseEntity<?> saveAddress(@RequestBody AddressDTO addressDTO) {
@@ -38,5 +44,10 @@ public class AddressController {
         // }
         // return new ResponseEntity<String>("Not Found", HttpStatus.NOT_FOUND);
         return address;
+    }
+
+    @GetMapping(value = "/profile")
+    public String readProfile() {
+        return profileProp;
     }
 }
